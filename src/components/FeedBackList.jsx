@@ -1,4 +1,5 @@
 import FeedBackItem from './FeedBackItem';
+import FeedbackStats from './FeedbackStats';
 
 function FeedBackList({ feedback, deleteItem }) {
   if (!feedback || feedback.lentgh === 0) {
@@ -6,6 +7,7 @@ function FeedBackList({ feedback, deleteItem }) {
   }
   return (
     <div>
+      <FeedbackStats feedback={feedback} />
       {feedback.map(item => {
         return (
           <FeedBackItem key={item.id} item={item} deleteItem={deleteItem} />
