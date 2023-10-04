@@ -8,11 +8,10 @@ function FeedBackList({ feedback, deleteItem }) {
   return (
     <div>
       <FeedbackStats feedback={feedback} />
-      {feedback.map(item => {
-        return (
-          <FeedBackItem key={item.id} item={item} deleteItem={deleteItem} />
-        );
-      })}
+
+      {feedback.map(item => (
+        <FeedBackItem key={item.id} item={item} deleteItem={deleteItem} />
+      ))}
     </div>
   );
 }
