@@ -4,11 +4,14 @@ import FeedbackStats from './FeedbackStats';
 import FeedbackContext from '../context/FeedbackContext';
 
 function FeedBackList() {
-  const { feedback } = useContext(FeedbackContext);
-  if (!feedback || feedback.lentgh === 0) {
+  const { feedback, isLoading } = useContext(FeedbackContext);
+  if (!isLoading && (!feedback || feedback.lentgh === 0)) {
     return <p>No Feedback</p>;
   }
-  return (
+
+  return isLoading ? (
+    <h3>Is Loading</h3>
+  ) : (
     <div>
       <FeedbackStats feedback={feedback} />
 
