@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 const FeedbackContext = createContext();
 
@@ -17,24 +16,29 @@ export const FeedbackProvider = ({ children }) => {
   }, []);
 
   const fetchFeedback = async () => {
-    const response = await fetch(
-      `http://localhost:2000/feedback?_sort=id&_order=desc`
-    );
+    const response = await fetch(`/feedback?_sort=id&_order=desc`);
     const data = await response.json();
 
     setFeedback(data);
     setIsLoading(false);
   };
 
+  const addFeedback = async newFeedback => {
+    const response = await fetch('/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newFeedback),
+    });
+
+    const data = await response.json();
+
+    setFeedback([data, ...feedback]);
+  };
+
   const deleteFeedback = id => {
     if (window.confirm('Are you sure you want to delete?')) {
       setFeedback(feedback.filter(item => item.id !== id));
     }
-  };
-
-  const addFeedback = newFeedback => {
-    newFeedback.id = uuidv4();
-    setFeedback([newFeedback, ...feedback]);
   };
 
   //Update Feedback item
