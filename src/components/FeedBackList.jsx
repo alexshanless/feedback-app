@@ -1,25 +1,17 @@
-import { useContext } from 'react';
-import FeedBackItem from './FeedBackItem';
-import FeedbackStats from './FeedbackStats';
-import FeedbackContext from '../context/FeedbackContext';
+import React from 'react';
+import FeedbackItem from './FeedbackItem';
 
-function FeedBackList() {
-  const { feedback, isLoading } = useContext(FeedbackContext);
-  if (!isLoading && (!feedback || feedback.lentgh === 0)) {
-    return <p>No Feedback</p>;
+function FeedbackList({ feedback }) {
+  if (!feedback || feedback.length === 0) {
+    return <p>No Feedback Yet</p>;
   }
-
-  return isLoading ? (
-    <h3>Is Loading</h3>
-  ) : (
-    <div>
-      <FeedbackStats feedback={feedback} />
-
+  return (
+    <div className='feeback-list'>
       {feedback.map(item => (
-        <FeedBackItem key={item.id} item={item} />
+        <FeedbackItem key={item.id} item={item} />
       ))}
     </div>
   );
 }
 
-export default FeedBackList;
+export default FeedbackList;
